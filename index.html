@@ -33,6 +33,42 @@
 <section id="sermons" class="section"><div class="heading"><p class="gold">SERMONS</p><h2>Listen to the Word</h2></div>
 <div class="tools glass"><input id="search" placeholder="Search sermons..."><select id="year"><option value="all">All years</option></select><select id="speaker"><option value="all">All speakers</option></select><button onclick="resetFilters()">Reset</button></div>
 <p id="count"></p><div id="sermonList"></div><button id="more" class="load" onclick="showMore()">Load More</button></section>
+<!-- =========================================
+     GALLERY
+     ========================================= -->
+
+<section id="gallery" class="gallery-section">
+
+    <div class="section-title">
+
+        <p>OUR MEMORIES</p>
+
+        <h2>Celebration Gallery</h2>
+
+    </div>
+
+
+    <div
+        id="galleryContainer"
+        class="gallery-container"
+    >
+
+        <p>Loading gallery...</p>
+
+    </div>
+
+
+    <button
+        id="galleryMore"
+        class="gallery-more"
+        style="display:none;"
+    >
+
+        More
+
+    </button>
+
+</section>
 <section id="contact" class="section"><div class="glass box"><p class="gold">CONTACT</p><h2>Contact Us</h2><p>Add your church address, phone and email here.</p></div></section>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js"></script>
 </body></html>
