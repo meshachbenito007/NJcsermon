@@ -62,3 +62,168 @@ if (eventForm) {
     });
 
 }
+// =========================================
+// GALLERY UPLOAD
+// =========================================
+
+const galleryForm =
+    document.getElementById("galleryForm");
+
+if (galleryForm) {
+
+    galleryForm.addEventListener(
+        "submit",
+        async function (e) {
+
+            e.preventDefault();
+
+            const title =
+                document
+                .getElementById("galleryTitle")
+                .value
+                .trim();
+
+            const galleryDate =
+                document
+                .getElementById("galleryDate")
+                .value;
+
+            const galleryType =
+                document
+                .getElementById("galleryType")
+                .value;
+
+            const fileInput =
+                document
+                .getElementById("galleryFile");
+
+            const file =
+                fileInput.files[0];
+
+            const description =
+                document
+                .getElementById("galleryDescription")
+                .value
+                .trim();
+
+            const message =
+                document
+                .getElementById("galleryMessage");
+
+
+            if (!file) {
+
+                message.textContent =
+                    "❌ Please select a file.";
+
+                return;
+
+            }
+
+
+            message.textContent =
+                "⏳ Uploading...";
+
+
+            try {
+
+                // Create unique filename
+                const fileName =
+                    Date.now() +
+                    "_" +
+                    file.name
+                    .replace(/\s+/g, "_");
+
+
+                // Upload file
+                const {
+                    error: uploadError
+                } =
+                    await supabaseClient
+                    .storage
+                    .from("gallery")
+                    .upload(
+                        fileName,
+                        file
+                    );
+
+
+                if (uploadError) {
+
+                    throw uploadError;
+
+                }
+
+
+                // Get public URL
+                const {
+                    data: publicData
+                } =
+                    supabaseClient
+                    .storage
+                    .from("gallery")
+                    .getPublicUrl(
+                        fileName
+                    );
+
+
+                const mediaUrl =
+                    publicData.publicUrl;
+
+
+                // Save information in database
+                const {
+                    error: databaseError
+                } =
+                    await supabaseClient
+                    .from("gallery")
+                    .insert([
+                        {
+
+                            title:
+                                title,
+
+                            gallery_date:
+                                galleryDate,
+
+                            media_type:
+                                galleryType,
+
+                            media_url:
+                                mediaUrl,
+
+                            description:
+                                description
+
+                        }
+                    ]);
+
+
+                if (databaseError) {
+
+                    throw databaseError;
+
+                }
+
+
+                message.textContent =
+                    "✅ Gallery media uploaded successfully!";
+
+
+                galleryForm.reset();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "❌ Error: " +
+                    error.message;
+
+            }
+
+        }
+    );
+
+}
