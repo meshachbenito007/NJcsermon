@@ -75,165 +75,95 @@
     <p id="eventMessage"></p>
 
 </section>
-const galleryForm =
-    document.getElementById("galleryForm");
+<section class="admin-section">
 
-if (galleryForm) {
+    <h2>📸 Add Gallery Media</h2>
 
-    galleryForm.addEventListener(
-        "submit",
-        async function (e) {
+    <form id="galleryForm">
 
-            e.preventDefault();
+        <div class="form-group">
 
-            const title =
-                document
-                .getElementById("galleryTitle")
-                .value
-                .trim();
+            <label>Title</label>
 
-            const galleryDate =
-                document
-                .getElementById("galleryDate")
-                .value;
+            <input
+                type="text"
+                id="galleryTitle"
+                placeholder="Example: 58th Anniversary Celebration"
+                required
+            >
 
-            const galleryType =
-                document
-                .getElementById("galleryType")
-                .value;
-
-            const fileInput =
-                document
-                .getElementById("galleryFile");
-
-            const file =
-                fileInput.files[0];
-
-            const description =
-                document
-                .getElementById("galleryDescription")
-                .value
-                .trim();
-
-            const message =
-                document
-                .getElementById("galleryMessage");
+        </div>
 
 
-            if (!file) {
+        <div class="form-group">
 
-                message.textContent =
-                    "❌ Please select a file.";
+            <label>Date</label>
 
-                return;
+            <input
+                type="date"
+                id="galleryDate"
+                required
+            >
 
-            }
-
-
-            message.textContent =
-                "⏳ Uploading...";
-
-
-            try {
-
-                // Create unique filename
-                const fileName =
-                    Date.now() +
-                    "_" +
-                    file.name
-                    .replace(/\s+/g, "_");
+        </div>
 
 
-                // Upload file
-                const {
-                    error: uploadError
-                } =
-                    await supabaseClient
-                    .storage
-                    .from("gallery")
-                    .upload(
-                        fileName,
-                        file
-                    );
+        <div class="form-group">
+
+            <label>Media Type</label>
+
+            <select id="galleryType" required>
+
+                <option value="photo">
+                    📷 Photo
+                </option>
+
+                <option value="video">
+                    🎥 Video
+                </option>
+
+            </select>
+
+        </div>
 
 
-                if (uploadError) {
+        <div class="form-group">
 
-                    throw uploadError;
+            <label>Photo / Video</label>
 
-                }
+            <input
+                type="file"
+                id="galleryFile"
+                accept="image/*,video/*"
+                required
+            >
 
-
-                // Get public URL
-                const {
-                    data: publicData
-                } =
-                    supabaseClient
-                    .storage
-                    .from("gallery")
-                    .getPublicUrl(
-                        fileName
-                    );
+        </div>
 
 
-                const mediaUrl =
-                    publicData.publicUrl;
+        <div class="form-group">
+
+            <label>Description</label>
+
+            <textarea
+                id="galleryDescription"
+                rows="4"
+                placeholder="Enter details about this celebration"
+            ></textarea>
+
+        </div>
 
 
-                // Save information in database
-                const {
-                    error: databaseError
-                } =
-                    await supabaseClient
-                    .from("gallery")
-                    .insert([
-                        {
+        <button type="submit">
 
-                            title:
-                                title,
+            📤 Upload Gallery Media
 
-                            gallery_date:
-                                galleryDate,
+        </button>
 
-                            media_type:
-                                galleryType,
-
-                            media_url:
-                                mediaUrl,
-
-                            description:
-                                description
-
-                        }
-                    ]);
+    </form>
 
 
-                if (databaseError) {
+    <p id="galleryMessage"></p>
 
-                    throw databaseError;
-
-                }
-
-
-                message.textContent =
-                    "✅ Gallery media uploaded successfully!";
-
-
-                galleryForm.reset();
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                message.textContent =
-                    "❌ Error: " +
-                    error.message;
-
-            }
-
-        }
-    );
-
-}
+</section>
 </div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>
