@@ -5,3 +5,4 @@ async function addSermon(){let topicEl=document.getElementById("topic"),speakerE
 async function loadAdminSermons(){let r=await supabaseClient.from("sermons").select("*").order("date",{ascending:false});if(r.error)return;adminList.innerHTML=r.data.map(s=>`<div class="admin-sermon glass"><img src="${s.image_url}"><div><h3>${escapeHtml(s.title)}</h3><p>${escapeHtml(s.speaker)} · ${s.date}</p></div><button onclick="deleteSermon(${s.id})">DELETE</button></div>`).join("")}
 async function deleteSermon(id){if(!confirm("Delete this sermon?"))return;await supabaseClient.from("sermons").delete().eq("id",id);loadAdminSermons()}
 function escapeHtml(x){return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}showPanel();
+
