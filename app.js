@@ -147,6 +147,7 @@ document.addEventListener("play", function (e) {
         });
     }
 }, true);
+loadSermons();
 // =========================================
 // LOAD GALLERY
 // =========================================
@@ -432,4 +433,3 @@ if (galleryMore) {
 
 loadGallery();
 
-loadSermons();
