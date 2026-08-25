@@ -138,15 +138,39 @@ year.addEventListener("change", filterSermons);
 speaker.addEventListener("change", filterSermons);
 
 // Play only one sermon at a time
-document.addEventListener("play", function (e) {
-    if (e.target.tagName === "AUDIO") {
-        document.querySelectorAll("audio").forEach(function (audio) {
-            if (audio !== e.target) {
-                audio.pause();
-            }
-        });
-    }
-}, true);
+document.addEventListener(
+    "play",
+    function(e) {
+
+        if (
+            e.target.tagName ===
+            "AUDIO"
+        ) {
+
+            document
+            .querySelectorAll(
+                "audio"
+            )
+            .forEach(
+                function(audio) {
+
+                    if (
+                        audio !==
+                        e.target
+                    ) {
+
+                        audio.pause();
+
+                    }
+
+                }
+            );
+
+        }
+
+    },
+    true
+);
 loadSermons();
 
 
