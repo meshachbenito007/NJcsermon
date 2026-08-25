@@ -4,4 +4,19 @@ function fillFilters(){let years=[...new Set(sermons.map(s=>new Date(s.date).get
 function filterSermons(){let q=search.value.toLowerCase(),y=year.value,sp=speaker.value;filtered=sermons.filter(s=>`${s.title} ${s.speaker}`.toLowerCase().includes(q)&&(y=="all"||new Date(s.date).getFullYear().toString()==y)&&(sp=="all"||s.speaker==sp));visible=4;displaySermons()}
 function displaySermons(){let shown=filtered.slice(0,visible);count.textContent=`Showing ${shown.length} of ${filtered.length} sermons`;sermonList.innerHTML=shown.map(s=>`<div class="sermon-card glass"><img src="${s.image_url}"><div><small>SERMON</small><h2>${escapeHtml(s.title)}</h2><p>${escapeHtml(s.speaker)} · ${s.date}</p><audio controls><source src="${s.audio_url}" type="audio/mpeg"></audio></div></div>`).join("");more.style.display=visible<filtered.length?"block":"none"}
 function showMore(){visible+=4;displaySermons()}function resetFilters(){search.value="";year.value="all";speaker.value="all";filterSermons()}function escapeHtml(x){return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-search.addEventListener("input",filterSermons);year.addEventListener("change",filterSermons);speaker.addEventListener("change",filterSermons);loadSermons();
+search.addEventListener("input", filterSermons);
+year.addEventListener("change", filterSermons);
+speaker.addEventListener("change", filterSermons);
+
+// Play only one sermon at a time
+document.addEventListener("play", function (e) {
+    if (e.target.tagName === "AUDIO") {
+        document.querySelectorAll("audio").forEach(function (audio) {
+            if (audio !== e.target) {
+                audio.pause();
+            }
+        });
+    }
+}, true);
+
+loadSermons();
