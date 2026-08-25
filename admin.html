@@ -2,7 +2,7 @@
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sermon Admin</title><link rel="stylesheet" href="style.css"></head>
 <body><div class="background"></div><div class="admin-page"><div class="glass admin-box"><a href="index.html">← View Website</a><p class="gold">NEW JERUSALEM CHURCH</p><h1>Sermon Admin Panel</h1>
 <div id="loginBox"><h2>Admin Login</h2><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password"><button class="button" onclick="login()">Login</button><p id="loginMessage"></p></div>
-<div id="panel" style="display:none"><div class="admin-top"><h2>Add New Sermon</h2><button onclick="logout()">Logout</button></div>
+<div id="panel" style="display:none"><div class="admin-top"><h2>Add New Sermon</h2><button onclick="logout()">Logout</button></div></div>
 <!-- UPCOMING EVENTS -->
 <section class="admin-section">
 
@@ -73,6 +73,6 @@
 
     <p id="eventMessage"></p>
 
-</section><div id="panel" style="display:none"><div class="admin-top"><h2>Add New Sermon</h2><button onclick="logout()">Logout</button></div>
+</section><div id="panel" style="display:none"><div class="admin-top"><h2>Add New Sermon</h2><button onclick="logout()">Logout</button></div>1</div>
 <label>Sermon Topic</label><input id="topic" placeholder="Enter sermon topic"><label>Speaker</label><input id="speaker" placeholder="Pastor name"><label>Date</label><input id="date" type="date"><label>Sermon Image</label><input id="image" type="file" accept="image/*"><label>Audio MP3</label><input id="audio" type="file" accept="audio/mpeg,audio/mp3"><button class="button" onclick="addSermon()">Publish Sermon</button><p id="message"></p><h2>Published Sermons</h2><div id="adminList"></div></div>
 </div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>
