@@ -398,3 +398,37 @@
     }
 
 }
+/* =========================================
+   TRANSPARENT AUDIO PLAYER
+   ========================================= */
+
+.sermon-audio {
+    width: 100%;
+    height: 42px;
+    background: transparent !important;
+    border: none;
+    outline: none;
+    border-radius: 0;
+    opacity: 0.9;
+}
+
+/* Chrome / Edge / Safari */
+.sermon-audio::-webkit-media-controls-panel {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+.sermon-audio::-webkit-media-controls-enclosure {
+    background: transparent !important;
+    border-radius: 12px;
+}
+
+/* Remove the default white-looking background */
+.sermon-audio::-webkit-media-controls {
+    background: transparent;
+}
+
+/* Firefox */
+.sermon-audio {
+    color-scheme: dark;
+}
