@@ -1,113 +1,495 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sermon Admin</title><link rel="stylesheet" href="style.css"></head>
-<body><div class="background"></div><div class="admin-page"><div class="glass admin-box"><a href="index.html">← View Website</a><p class="gold">NEW JERUSALEM CHURCH</p><h1>Sermon Admin Panel</h1>
-<div id="loginBox"><h2>Admin Login</h2><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password"><button class="button" onclick="login()">Login</button><p id="loginMessage"></p></div></div><div id="panel" style="display:none;">
+<html lang="en">
 
-<!-- UPCOMING EVENTS -->
-<div class="admin-page"><div class="glass admin-box">
-<section class="admin-section">
+<head>
 
-    <h2>📅 Manage Upcoming Events</h2>
+    <meta charset="UTF-8">
 
-    <form id="eventForm">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-        <input
-            type="hidden"
-            id="eventId"
-        >
+    <title>Sermon Admin</title>
 
-        <div class="form-group">
-            <label>Event Title</label>
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-            <input
-                type="text"
-                id="eventTitle"
-                placeholder="Example: Church Anniversary"
-                required
-            >
+</head>
+
+
+<body>
+
+    <div class="background"></div>
+
+
+    <div class="admin-page">
+
+        <div class="glass admin-box">
+
+            <a href="index.html">
+                ← View Website
+            </a>
+
+            <p class="gold">
+                NEW JERUSALEM CHURCH
+            </p>
+
+            <h1>
+                Sermon Admin Panel
+            </h1>
+
+
+            <!-- =====================================
+                 LOGIN
+                 ===================================== -->
+
+            <div id="loginBox">
+
+                <h2>
+                    Admin Login
+                </h2>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Admin email"
+                >
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                >
+
+                <button
+                    type="button"
+                    class="button"
+                    onclick="login()"
+                >
+                    Login
+                </button>
+
+                <p id="loginMessage"></p>
+
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <label>Event Date</label>
 
-            <input
-                type="date"
-                id="eventDate"
-                required
-            >
-        </div>
+        <!-- =========================================
+             ADMIN PANEL
+             Hidden until successful login
+             ========================================= -->
 
-        <div class="form-group">
-            <label>Event Time</label>
-
-            <input
-                type="text"
-                id="eventTime"
-                placeholder="Example: 6:00 PM"
-            >
-        </div>
-
-        <div class="form-group">
-            <label>Location</label>
-
-            <input
-                type="text"
-                id="eventLocation"
-                placeholder="New Jerusalem Church"
-            >
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-
-            <textarea
-                id="eventDescription"
-                rows="4"
-                placeholder="Event details"
-            ></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Event Image URL</label>
-
-            <input
-                type="url"
-                id="eventImage"
-                placeholder="https://..."
-            >
-        </div>
-
-        <button
-            type="submit"
-            id="eventSubmitButton"
-        >
-            📅 Add Event
-        </button>
-
-        <button
-            type="button"
-            id="eventCancelButton"
+        <div
+            id="panel"
             style="display:none;"
         >
-            Cancel Edit
-        </button>
-
-    </form>
-
-    <p id="eventMessage"></p>
 
 
-    <!-- Existing Events -->
+            <!-- =====================================
+                 1. UPCOMING EVENTS
+                 ===================================== -->
 
-    <div id="adminEventsList">
+            <div class="glass admin-box">
 
-        <p>Loading events...</p>
+                <section class="admin-section">
 
-    </div></section></div></div>
-<div class="admin-page"><div class="glass admin-box">
-<section class="admin-section">
-<div></div>
-<div><h1>Add New Sermon</h1></div>
-<label>Sermon Topic</label><input id="topic" placeholder="Enter sermon topic"><label>Speaker</label><input id="speaker" placeholder="Pastor name"><label>Date</label><input id="date" type="date"><label>Sermon Image</label><input id="image" type="file" accept="image/*"><label>Audio MP3</label><input id="audio" type="file" accept="audio/mpeg,audio/mp3"><button class="button" onclick="addSermon()">Publish Sermon</button><p id="message"></p> </div></div>
-<div class="admin-page"><div class="glass admin-box"><h2>Published Sermons</h2><div id="adminList"></section></div>
-</div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>
+                    <h2>
+                        📅 Manage Upcoming Events
+                    </h2>
+
+
+                    <form id="eventForm">
+
+                        <!-- Used when editing -->
+                        <input
+                            type="hidden"
+                            id="eventId"
+                        >
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Event Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="eventTitle"
+                                placeholder="Example: Church Anniversary"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Event Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="eventDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Event Time
+                            </label>
+
+                            <input
+                                type="text"
+                                id="eventTime"
+                                placeholder="Example: 6:00 PM"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                id="eventLocation"
+                                placeholder="New Jerusalem Church"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="eventDescription"
+                                rows="4"
+                                placeholder="Event details"
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Event Image URL
+                            </label>
+
+                            <input
+                                type="url"
+                                id="eventImage"
+                                placeholder="https://..."
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            id="eventSubmitButton"
+                            class="button"
+                        >
+                            📅 Add Event
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="eventCancelButton"
+                            class="button"
+                            style="display:none;"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </form>
+
+
+                    <p id="eventMessage"></p>
+
+
+                    <!-- Existing events -->
+
+                    <h3>
+                        Existing Upcoming Events
+                    </h3>
+
+                    <div id="adminEventsList">
+
+                        <p>
+                            Loading events...
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 2. ADD NEW SERMON
+                 ===================================== -->
+
+            <div class="glass admin-box">
+
+                <section class="admin-section">
+
+                    <h2>
+                        🎙️ Add New Sermon
+                    </h2>
+
+
+                    <label>
+                        Sermon Topic
+                    </label>
+
+                    <input
+                        id="topic"
+                        type="text"
+                        placeholder="Enter sermon topic"
+                    >
+
+
+                    <label>
+                        Speaker
+                    </label>
+
+                    <input
+                        id="speaker"
+                        type="text"
+                        placeholder="Pastor name"
+                    >
+
+
+                    <label>
+                        Date
+                    </label>
+
+                    <input
+                        id="date"
+                        type="date"
+                    >
+
+
+                    <label>
+                        Sermon Image
+                    </label>
+
+                    <input
+                        id="image"
+                        type="file"
+                        accept="image/*"
+                    >
+
+
+                    <label>
+                        Audio MP3
+                    </label>
+
+                    <input
+                        id="audio"
+                        type="file"
+                        accept="audio/mpeg,audio/mp3"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="button"
+                        onclick="addSermon()"
+                    >
+                        Publish Sermon
+                    </button>
+
+
+                    <p id="message"></p>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 3. PUBLISHED SERMONS
+                 ===================================== -->
+
+            <div class="glass admin-box">
+
+                <section class="admin-section">
+
+                    <h2>
+                        🎧 Published Sermons
+                    </h2>
+
+
+                    <div id="adminList">
+
+                        <p>
+                            Loading sermons...
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 4. GALLERY
+                 ===================================== -->
+
+            <div class="glass admin-box">
+
+                <section class="admin-section">
+
+                    <h2>
+                        📸 Add Gallery Media
+                    </h2>
+
+
+                    <form id="galleryForm">
+
+                        <div class="form-group">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="galleryTitle"
+                                placeholder="Example: 58th Anniversary Celebration"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="galleryDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Media Type
+                            </label>
+
+                            <select id="galleryType">
+
+                                <option value="photo">
+                                    📷 Photo
+                                </option>
+
+                                <option value="video">
+                                    🎥 Video
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Photo / Video
+                            </label>
+
+                            <input
+                                type="file"
+                                id="galleryFile"
+                                accept="image/*,video/*"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="galleryDescription"
+                                rows="4"
+                                placeholder="Enter details about this celebration"
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="button"
+                        >
+                            📤 Upload Gallery Media
+                        </button>
+
+                    </form>
+
+
+                    <p id="galleryMessage"></p>
+
+                </section>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         SCRIPTS
+         ========================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="config.js"></script>
+
+    <script src="admin.js"></script>
+
+
+</body>
+
+</html>
