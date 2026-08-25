@@ -32,11 +32,10 @@ async function login() {
         loadAdminEvents();
     }
 }
-checkSession();
 async function addSermon(){let topicEl=document.getElementById("topic"),speakerEl=document.getElementById("speaker"),dateEl=document.getElementById("date"),imageEl=document.getElementById("image"),audioEl=document.getElementById("audio");let topic=topicEl.value.trim(),sp=speakerEl.value.trim(),date=dateEl.value,image=imageEl.files[0],audio=audioEl.files[0];if(!topic||!sp||!date||!image||!audio){message.textContent="Please fill every field.";return}message.textContent="Uploading...";let imageName=Date.now()+"-"+image.name.replace(/\s+/g,"-"),audioName=Date.now()+"-"+audio.name.replace(/\s+/g,"-");let a=await supabaseClient.storage.from("sermons").upload("images/"+imageName,image);if(a.error){message.textContent=a.error.message;return}let b=await supabaseClient.storage.from("sermons").upload("audio/"+audioName,audio);if(b.error){message.textContent=b.error.message;return}let imageUrl=supabaseClient.storage.from("sermons").getPublicUrl("images/"+imageName).data.publicUrl;let audioUrl=supabaseClient.storage.from("sermons").getPublicUrl("audio/"+audioName).data.publicUrl;let r=await supabaseClient.from("sermons").insert({title:topic,speaker:sp,date:date,image_url:imageUrl,audio_url:audioUrl});if(r.error){message.textContent=r.error.message;return}message.textContent="Sermon published successfully!";topicEl.value="";speakerEl.value="";dateEl.value="";imageEl.value="";audioEl.value="";loadAdminSermons()}
 async function loadAdminSermons(){let r=await supabaseClient.from("sermons").select("*").order("date",{ascending:false});if(r.error)return;adminList.innerHTML=r.data.map(s=>`<div class="admin-sermon glass"><img src="${s.image_url}"><div><h3>${escapeHtml(s.title)}</h3><p>${escapeHtml(s.speaker)} · ${s.date}</p></div><button onclick="deleteSermon(${s.id})">DELETE</button></div>`).join("")}
 async function deleteSermon(id){if(!confirm("Delete this sermon?"))return;await supabaseClient.from("sermons").delete().eq("id",id);loadAdminSermons()}
-function escapeHtml(x){return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}showPanel();
+function escapeHtml(x){return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 // =========================================
 // UPCOMING EVENTS - ADMIN
 // =========================================
@@ -455,16 +454,5 @@ function resetEventForm() {
         "none";
 
     eventMessage.textContent = "";
-
-}
-
-
-// =========================================
-// START
-// =========================================
-
-if (adminEventsList) {
-
-    loadAdminEvents();
 
 }
