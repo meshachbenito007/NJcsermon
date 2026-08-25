@@ -227,3 +227,40 @@ if (galleryForm) {
     );
 
 }
+async function deletePhoto(id, fileName) {
+  const confirmDelete = confirm(
+    "Are you sure you want to delete this photo?"
+  );
+
+  if (!confirmDelete) {
+    return;
+  }
+
+  // Delete the database record
+  const { error } = await supabase
+    .from("gallery")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Could not delete photo: " + error.message);
+    return;
+  }
+
+  // Delete the actual image from Storage
+  const { error: storageError } = await supabase
+    .storage
+    .from("gallery")
+    .remove([fileName]);
+
+  if (storageError) {
+    alert("Photo record deleted, but the image file could not be deleted.");
+    console.error(storageError);
+    return;
+  }
+
+  alert("Photo deleted successfully!");
+
+  // Refresh the gallery
+  loadGallery();
+}
