@@ -398,12 +398,10 @@
     }
 
 }
-/* =========================================
-   SERMON GLASS AUDIO PLAYER
-   ========================================= */
 /* =====================================================
    SERMON GLASS AUDIO PLAYER
    ===================================================== */
+
 .sermon-audio {
     width: 100%;
     height: 46px;
@@ -469,56 +467,6 @@
 
     border-color:
         rgba(255, 255, 255, 0.25);
-}
-
-
-/* Mobile */
-
-@media (max-width: 600px) {
-
-    .sermon-audio {
-        height: 44px;
-        margin-top: 12px;
-        border-radius: 12px;
-    }
-
-}
-
-/* Chrome / Edge / Safari */
-
-.sermon-audio::-webkit-media-controls-enclosure {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border-radius: 14px;
-}
-
-.sermon-audio::-webkit-media-controls-panel {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border-radius: 14px;
-}
-
-.sermon-audio::-webkit-media-controls-play-button {
-    filter: brightness(1.8);
-}
-
-.sermon-audio::-webkit-media-controls-timeline {
-    filter: brightness(1.4);
-}
-
-.sermon-audio::-webkit-media-controls-current-time-display,
-.sermon-audio::-webkit-media-controls-time-remaining-display {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.sermon-audio::-webkit-media-controls-volume-slider {
-    filter: brightness(1.3);
-}
-
-
-/* Hover effect */
-
-.sermon-audio:hover {
-    background: rgba(255, 255, 255, 0.09) !important;
-    border-color: rgba(255, 255, 255, 0.25);
 }
 
 
